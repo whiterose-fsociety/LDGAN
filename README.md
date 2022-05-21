@@ -1,5 +1,14 @@
 # Learning Degradation Using Generative Adversarial Networks for Image Super-Resolution
 
+
+```python
+conda create --name ldgan python=3.9
+conda activate ldgan
+cd ../
+python3 -m pip install LDGAN
+cd src
+python3 -m pip install -r requirements
+```
 ## Experiment 1: Vanilla End-To-End Network
 
 * Run 1
