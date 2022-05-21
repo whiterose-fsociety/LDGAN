@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Experiments
 
 * Experiment 1: Vanilla End-To-End Network
@@ -73,3 +74,7 @@
         -- Texture Loss
 
 
+=======
+# LDGAN
+Learning Degradation Using Generative Adversarial Networks
+>>>>>>> caabfd421249256058f3957c2704c8ff7c9ba59d
