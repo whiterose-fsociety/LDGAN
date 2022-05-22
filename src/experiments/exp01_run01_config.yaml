@@ -1,0 +1,131 @@
+---
+# ------------------- Experiment Facts
+experiment_facts:
+ experiment_number: 1
+ run_number: 1
+ experiment_name: "Vanilla Learned Degradation Using Generative Adversarial Networks for Image Super-Resolution"
+ experiment_description: "Performing standard learned degradation using generative adversarial networks for image super-resolution"
+ cuda: True
+ checkpoints:
+  load_model_downsample: False
+  load_model_middle: False
+  load_model_upsample: False
+  save_model_upsample: True
+  save_model_downsample: True
+  save_model_middle: True
+  checkpoint_downsample: "skip_connection.pth"
+  checkpoint_adv_downsample: "adv_downsample.pth.tar"
+  checkpoint_upsample: "gen.pth.tar"
+  checkpoint_adv_upsample: "adv_gen.pth.tar"
+  
+# ------------------- Dataset Facts
+dataset_facts:
+ dataset_name: "DIV2K/"
+ dataset_lr_title: "Unknown Degradation X4"
+ dataset_root_dir: "/home-mscluster/mmolefe/Playground/Artificial Intelligence/Research/Learning Degradation Using Generative Adversarial Networks For Image Super-Resolution/Dataset/"
+ lr_train_dataset: "Train/DIV2K_train_LR_unknown/X4/"
+ lr_valid_dataset: "Valid/DIV2K_valid_LR_unknown/X4/"
+ lr_test_dataset: "Test/DIV2K_test_LR_unknown/X4/"
+ hr_train_dataset: "Train/DIV2K_train_HR/"
+ hr_valid_dataset: "Valid/DIV2K_valid_HR/"
+ hr_test_dataset: "Test/DIV2K_test_HR"
+ resolution:
+  high_res: 256
+  low_res: 64
+  img_channels: 3
+ transforms:
+  horizontal:
+   p: 0.5
+  random_rotate:
+   p: 0.5
+  mean:
+   - 0
+   - 0
+   - 0
+  std:
+   - 1
+   - 1
+   - 1
+
+# ------------------- Model facts
+model_facts:
+ in_channels: 3
+ num_features: 64
+ gen_blocks: 7
+ dis_blcoks: 14
+
+# ------------------- Training Facts
+training_facts:
+ num_epochs: 2500
+ style: "without penalty"
+ batch_size: 1
+ num_workers: 1
+ start_P_epoch: 0
+ start_epoch: 0
+ P_epochs: 200
+ epochs: 1409
+ upsampling:
+  architecture: 'ESRGAN'
+  learning_rate: 0.00001 
+  optimizer: 
+   p_optimizer:
+    beta_1: 0.0
+    beta_2: 0.9
+   scheduler:
+    milestones:
+     - 0.125
+     - 0.250
+     - 0.500
+     - 0.750
+   multi_step_lr: 0.00000001
+
+ downsampling:
+  archicture: 'Vanilla GAN'
+  learning_rate: 0.00001
+  alpha: 1
+  beta: 0.05
+  optimizer:
+   p_optimizer:
+    beta_1: 0.002
+    beta_2: 0.999
+   scheduler:
+    milestones:
+     - 0.125
+     - 0.250
+     - 0.500
+     - 0.750
+    multi_step_lr: 0.00000001
+
+# ------------------- Loss Facts
+loss_facts:
+ loss: 'Combined Adversarial Loss'
+ pixel_weight: 1.0
+ content_weight: 1.0
+ charbonner_weight: 1.0
+ texture_weight: 1.0
+ adversarial_weight: 0.001
+
+# ------------------- Evaluation Facts
+evaluation_facts:
+ root_dir: "/home-mscluster/mmolefe/Playground/Artificial Intelligence/Research/Learning Degradation Using Generative Adversarial Networks For Image Super-Resolution/Images/"
+ lr_during_training_images: "Train/LR/Unknown/X4/"
+ lr_evaluation_images: "Test/LR/Unknown/X4/"
+ hr_during_training_images: "Train/HR/"
+ hr_evaluation_images: "Test/HR/"
+ 
+
+
+# ------------------- Results Facts
+results_facts:
+ model_name: "Combined Enhanced Generative Adversarial Network Without Penalty"
+ root_dir: "/home-mscluster/mmolefe/Playground/Artificial Intelligence/Research/Learning Degradation Using Generative Adversarial Networks For Image Super-Resolution/Results/"
+ lr_results: "downsampled/"
+ hr_results: "upsampled/"
+ during_training_images: "during_training_images/"
+ evaluation: 'evaluation/'
+ during_training_loss: "during_training_loss/"
+ weights: "weights/"
+ samples: "samples/"
+ summary: "summary/"
+ writer_logs: "logs/"
+
